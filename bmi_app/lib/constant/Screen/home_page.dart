@@ -1,5 +1,4 @@
 import 'package:bmi_app/constant/app_constant.dart';
-// ignore: unused_import
 import 'package:bmi_app/constant/widgets/RightBar.dart';
 import 'package:bmi_app/constant/widgets/left_bar.dart';
 import 'package:flutter/material.dart';
@@ -45,11 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Height",
+                    hintText: "Height in cm",
                     hintStyle: TextStyle(
                         fontSize: 42,
                         fontWeight: FontWeight.w300,
-                        color: Colors.white.withOpacity(0.8))),
+                        color: Colors.yellow.withOpacity(0.8))),
               ),
             ),
           ]),
@@ -65,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Weight",
+                    hintText: "Weight in kg",
                     hintStyle: TextStyle(
                         fontSize: 42,
                         fontWeight: FontWeight.w300,
-                        color: Colors.white.withOpacity(0.8))),
+                        color: Colors.yellow.withOpacity(0.8))),
               ),
             ),
           ]),
@@ -78,8 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           GestureDetector(
             onTap: () {
-              double _h = double.parse(_heightController.text);
+              double _h = double.parse(_heightController.text) / 100;
               double _w = double.parse(_weightController.text);
+
+            
               setState(() {
                 _bmiResult = _w / (_h * _h);
                 if (_bmiResult > 25) {
