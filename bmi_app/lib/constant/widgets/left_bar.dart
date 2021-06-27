@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'package:bmi_app/constant/app_constant.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +13,14 @@ class LeftBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          height: 25,
+          height: 30,
           width: barWidth,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 bottomLeft: Radius.circular(20),
               ),
-              color: accentHexColor),
+              color: Colors.orange),
         )
       ],
     );

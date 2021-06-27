@@ -7,15 +7,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BMI calculator',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
-        visualDensity: VisualDensity.adaptivePlatformDensity
+        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
       ),
       home: HomeScreen(),
     );
