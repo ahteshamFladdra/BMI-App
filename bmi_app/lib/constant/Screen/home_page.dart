@@ -1,5 +1,3 @@
-// ignore: unused_import
-import 'package:bmi_app/constant/app_constant.dart';
 import 'package:bmi_app/constant/widgets/left_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +8,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
-  // ignore: unused_field
   late String valueChoose = listItem[0];
   List listItem = [
     "cm",
@@ -27,30 +24,28 @@ class _HomeScreenState extends State<HomeScreen> {
   get newValue => null;
 
   late double bmi;
-  String message = 'Please enteryour height an weight';
+  String message = 'Please enter your height an weight';
 
   void calculate() {
-    // ignore: unused_local_variable
-    final ValueChanged<String>? onChanged;
     final double height = double.parse(heightController.value.text);
     final double weight = double.parse(weightController.value.text);
 
     if (height <= 0 || weight <= 0) {
       setState(() {
-        // ignore: unused_local_variable
-        var _message = "Your height and weigh must be positive numbers";
+        message = "Your height and weigh must be positive numbers";
       });
       return;
     }
 
     setState(() {
-      bmi = weight / (height * height);
+      bmi = weight / (height / 100 * height / 100);
+      _result = "${bmi.toStringAsPrecision(3)}";
       if (bmi < 18.5) {
         message = "You are underweight";
       } else if (bmi < 25) {
         message = 'You body is fine';
       } else if (bmi < 30) {
-        message = 'You are overweight';
+        message = 'You are over weight';
       } else {
         message = 'You are obese';
       }
@@ -59,10 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    var selectedCurrency;
-    // ignore: unused_local_variable
-    var dropdownItems;
     return Container(
         child: Scaffold(
       appBar: AppBar(
@@ -73,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 padding: EdgeInsets.only(left: 4, right: 4),
                 child: Column(children: [
-                  Text(
+                  const Text(
                     "BMI Calculator",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 40,
+                        fontSize: 28,
                         fontWeight: FontWeight.bold),
                   ),
                 ]),
@@ -86,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         elevation: 0.0,
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.greenAccent,
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: handleClick,
@@ -115,8 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Row(
                 children: [
-                  radioButton("Man", Colors.blue, 0),
-                  radioButton("Women", Colors.orange, 1),
+                  radioButton("Man", Colors.greenAccent, 0),
+                  radioButton("Women", Colors.pinkAccent, 1),
                 ],
               ),
               SizedBox(
@@ -131,41 +122,19 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 10.0,
               ),
-              Container(
-                height: 50,
-                width: 100,
-                child: DropdownButton(
-                  hint: Text("Select Item"),
-                  dropdownColor: Colors.deepPurple,
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 36,
-                  isExpanded: true,
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                  value: valueChoose,
-                  onChanged: (newValues) {
-                    setState(() {
-                      valueChoose = newValue as String;
-                    });
-                  },
-                  items: listItem.map((valueItem) {
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
-                ),
-              ),
               SizedBox(
                 height: 20,
               ),
               TextField(
                 controller: heightController,
                 keyboardType: TextInputType.number,
+                style: TextStyle(color: Colors.black),
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: "Your Height in Cm",
+                  hintStyle: TextStyle(color: Colors.black),
                   filled: true,
-                  fillColor: Colors.black,
+                  fillColor: Colors.greenAccent,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide.none,
@@ -176,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 30,
               ),
               Text(
-                "Your Weight in Kg :",
+                "Your Weight  :",
                 style: TextStyle(
                   fontSize: 18.0,
                 ),
@@ -186,12 +155,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               TextField(
                 keyboardType: TextInputType.number,
+                style: TextStyle(color: Colors.black),
                 controller: weightController,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: "Your Weight in Kg",
+                  hintStyle: TextStyle(color: Colors.black),
                   filled: true,
-                  fillColor: Colors.black,
+                  fillColor: Colors.greenAccent,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                     borderSide: BorderSide.none,
@@ -207,19 +178,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ignore: deprecated_member_use
                 child: FlatButton(
                   onPressed: () {
-                    setState(() {
-                      // ignore: unused_local_variable
-                      height = double.parse(heightController.value.text);
-                      // ignore: unused_local_variable
-                      weight = double.parse(weightController.value.text);
-                    });
+                    height = double.parse(heightController.value.text);
+                    weight = double.parse(weightController.value.text);
 
-                    calculateBmi(height, weight);
+                    calculate();
                   },
-                  color: Colors.green,
+                  color: Colors.greenAccent,
                   child: Text(
                     "Calculate",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                 ),
               ),
@@ -229,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 width: double.infinity,
                 child: Text(
-                  "Your BMI is :",
+                  "Your BMI is : $_result",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
@@ -240,9 +207,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 width: double.infinity,
                 child: Text(
-                  "$_result",
+                  "$message",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
               LeftBar(
@@ -270,14 +237,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ));
   }
 
-  void calculateBmi(double height, double weight) {
-    double finalresult = weight / (height * height / 100);
-    String bmi = finalresult.toStringAsFixed(2);
-    setState(() {
-      _result = bmi;
-    });
-  }
-
   void changeIndex(int index) {
     setState(() {
       currentIndex = index;
@@ -299,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
             changeIndex(index);
           },
           child: Text(
-            value,
+            "$value",
             style: TextStyle(
               color: currentIndex == index ? Colors.white : color,
               fontSize: 18.0,

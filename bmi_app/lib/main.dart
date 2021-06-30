@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:bmi_app/constant/Screen/home_page.dart';
+import 'package:bmi_app/constant/Screen/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         brightness: Brightness.dark,
       ),
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }

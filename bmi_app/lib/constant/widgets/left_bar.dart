@@ -20,7 +20,7 @@ class LeftBar extends StatelessWidget {
                 topLeft: Radius.circular(20),
                 bottomLeft: Radius.circular(20),
               ),
-              color: Colors.orange),
+              color: Colors.greenAccent),
         )
       ],
     );
